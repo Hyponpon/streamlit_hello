@@ -44,22 +44,23 @@ with tab2:
         df_staff = pd.read_csv(upload_staff)
         st.markdown("## スタッフ情報")
         st.write(df_staff)
-        st.markdown("## 休暇希望")
-        staff_ng_date_radio_button = {}
-        # スタッフごとに休暇希望のラジオボタンを作成
-        for i in range(len(df_staff)):
-            staff_id = df_staff.loc[i, "スタッフID"]
-            st.write()
-            staff_ng_date_radio_button[staff_id] = st.radio(
-                staff_id,
-                ["すべてOK"]
-                + [
-                    df_calendar.loc[j, "日付"]
-                    for j in range(df_calendar.shape[0])
-                ],
-                horizontal=True,
-            )
-        # st.write(staff_ng_date_radio_button)
+        if upload_calendar is not None:
+            st.markdown("## 休暇希望")
+            staff_ng_date_radio_button = {}
+            # スタッフごとに休暇希望のラジオボタンを作成
+            for i in range(len(df_staff)):
+                staff_id = df_staff.loc[i, "スタッフID"]
+                st.write()
+                staff_ng_date_radio_button[staff_id] = st.radio(
+                    staff_id,
+                    ["すべてOK"]
+                    + [
+                        df_calendar.loc[j, "日付"]
+                        for j in range(df_calendar.shape[0])
+                    ],
+                    horizontal=True,
+                )
+            # st.write(staff_ng_date_radio_button)
 
     else:
         st.write('スタッフ情報をアップロードしてください')
